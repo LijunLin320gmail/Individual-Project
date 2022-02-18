@@ -7,11 +7,11 @@ module.exports = function () {
     //connection exception
     db.on('error', (err) => {
         // console.error.bind( 'connection error：')
-        console.log('MongoDBConnection failed！！')
+        console.log('MongoDBgotfail！！')
     })
     //connection succeeded
     db.once('open', (callback) => {
-        console.log('MongoDBconnection succeeded！！')
+        console.log('MongoDBgotsuccess！！')
     })
     //Disconnect
     db.on('disconnected', function () {

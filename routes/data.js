@@ -33,7 +33,7 @@ router.post('/add', uploadFile, function (req, res, next) {
         }
     });
 });
-/* search */
+/*search*/
 router.get('/findAll', function (req, res, next) {
     Data.find({}, function (err, docs) {
         if (err) {
@@ -43,9 +43,10 @@ router.get('/findAll', function (req, res, next) {
         res.json({ code: '000', 'result': docs });
     });
 });
+/* ================================= */
 //Custom middleware [image upload]
 function uploadFile(req, res, next) {
-    //The dest value is the path of the file storage; the single method means uploading a single file, and the parameter is the key corresponding to the form data
+    //dest The value is the path of the file storage; the single method means uploading a single file, and the parameter is the key corresponding to the form data
     // let upload = multer({ dest: "public/uploads" }).single("photo");
     //Set the name of the file
     let filename = "";
@@ -69,7 +70,7 @@ function uploadFile(req, res, next) {
         }
     })
     let upload = multer({ storage: storage }).single("file");
-    /* The single attribute name must be the same as the uploaded name, otherwise an error will be reported: multererr: MulterError: */
+    /* The single attribute name must be the same as the uploaded name, otherwise an error will be reported：multererr:MulterError: */
     upload(req, res, (err) => {
         // console.log(req.file);
         /* file save */

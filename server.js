@@ -17,12 +17,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))/* Receive and parse post data */
 
-
 /* Link and instantiate the database */
 const mongoose = require('./config/mongoose.js')
 const db = mongoose();
 /* access interface */
 app.use('/data', dataRouter);
+
+
+
+
 
 http.listen(port, () => {
   console.log("Listening on port ", port);

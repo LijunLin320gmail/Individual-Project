@@ -26,14 +26,14 @@
 <body>
     <header>
         <nav>
-            <div class="nav-wrapper" style=" background-color: #5aadf0;">
+            <div class="nav-wrapper" style=" background-color: #4d80ec;">
                 <a href="#" class="brand-logo" style="height: 100%;">
                     <img src="assets/fishlogal.jpeg" alt="" class="circle responsive-img"
                         style="height: 100%;padding-top: 5px; padding-left: 15px;"> <!-- notice the "circle" class -->
 
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="https://youtu.be/a8hPn_a4IkM">Youtube channel</a></li>
+                    <li><a href="https://youtu.be/BKRN_o3qsgc">youtube video</a></li>
                 </ul>
             </div>
         </nav>
@@ -41,7 +41,7 @@
     <main>
 
         <div class="container">
-            <h1 class="title">Fishing Map</h1>
+            <h1 class="title">Fish Map</h1>
             <div class="row">
                 <p class="flow-text mainText">let's share the fishes you caught in Melbourne!</p>
             </div>
@@ -51,8 +51,8 @@
             </div>
             <div class="row center " style="padding-top:50px;">
                 <a id="testButton" class="waves-effect waves-light btn-large modal-trigger" href="#modal1"
-                    style="background-color: #2c87ee;"><i class="material-icons left"
-                        style="color:white font-size=larger">emoji_people</i>Share it!</a>
+                    style="background-color: #38aaec;"><i class="material-icons left"
+                        style="color:white font-size=larger">emoji_people</i>Share your fishes!</a>
             </div>
             <div class="row" id="listProjects">
 
@@ -63,9 +63,9 @@
     <footer class="page-footer">
         <div class="footer-copyright">
             <div class="container">
-                © 2022 Copyright Lijun Lin
+                © 2020 Copyright Lin
                 <a class="grey-text text-lighten-4 right" href="https://github.com/alexbonti/node-material"><img
-                        src="assets/git-logo.svg" style="height: 20px; padding-right: 15px;"></i>the github here!</a>
+                        src="assets/git-logo.svg" style="height: 20px; padding-right: 15px;"></i>Boiler plate here !</a>
             </div>
         </div>
     </footer>
@@ -86,12 +86,12 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>Share you wonderful experience of fishing</h4>
+            <h4>Share your experience</h4>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <input placeholder="description text" id="description" type="text" class="validate">
-                <label for="description">How could you catch it?</label>
+                <label for="description">How you caught it?</label>
             </div>
             <div class="input-field col s12">
                 <input type="file" accept="image/*" onchange="getzImg(this)" style="display:none" value="" id="img_z" />
@@ -104,6 +104,11 @@
                         class="material-icons">add</i></a>
                 <div class="pngbox fn-clear"></div>
             </div>
+
+            <!-- <div class="input-field col s12">
+                <input value="" id="image" type="text" class="validate">
+                <label class="username" for="image">Image Url</label>
+            </div> -->
         </div>
         <div class="modal-footer">
             <a href="javascript:;" class=" waves-effect waves-green btn-flat" id="submit">Submit</a>
@@ -173,7 +178,7 @@
                     }
                 },
                 error: function () {
-                    alert('communication error');
+                    alert('get connection fail');
                 }
             });
             $('#submit').click(function () {
@@ -197,10 +202,12 @@
                         }
                     },
                     error: function () {
-                        alert('communication error');
+                        alert('get connection fail');
                     }
                 });
             })
+            // alert('Project Successfully submitted')
+            // $('#myModal').modal('hide')
         })
     </script>
 </body>
