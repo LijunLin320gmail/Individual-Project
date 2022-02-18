@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Individual Project</title>
+
+    <!-- Compiled and minified CSS -->
+    <!-- Materialze-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Materialize icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .pngbox img {
+            width: 120px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper" style=" background-color: #5aadf0;">
+                <a href="#" class="brand-logo" style="height: 100%;">
+                    <img src="assets/fishlogal.jpeg" alt="" class="circle responsive-img"
+                        style="height: 100%;padding-top: 5px; padding-left: 15px;"> <!-- notice the "circle" class -->
+
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="https://youtu.be/a8hPn_a4IkM">Youtube channel</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+
+        <div class="container">
+            <h1 class="title">Fishing Map</h1>
+            <div class="row">
+                <p class="flow-text mainText">let's share the fishes you caught in Melbourne!</p>
+            </div>
+            <div class="row center" style="height: 150px;">
+                <img src="assets/fishman.jpeg" alt="" class="circle responsive-img"
+                    style="height: 100%;padding-top: 5px; padding-left: 15px;"> <!-- notice the "circle" class -->
+            </div>
+            <div class="row center " style="padding-top:50px;">
+                <a id="testButton" class="waves-effect waves-light btn-large modal-trigger" href="#modal1"
+                    style="background-color: #2c87ee;"><i class="material-icons left"
+                        style="color:white font-size=larger">emoji_people</i>Share it!</a>
+            </div>
+            <div class="row" id="listProjects">
+
+            </div>
+        </div>
+
+    </main>
+    <footer class="page-footer">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2022 Copyright Lijun Lin
+                <a class="grey-text text-lighten-4 right" href="https://github.com/alexbonti/node-material"><img
+                        src="assets/git-logo.svg" style="height: 20px; padding-right: 15px;"></i>the github here!</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- socket IO Served by the server -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="./assets/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- <script src="env.js"></script> -->
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Share you wonderful experience of fishing</h4>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="description text" id="description" type="text" class="validate">
+                <label for="description">How could you catch it?</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="file" accept="image/*" onchange="getzImg(this)" style="display:none" value="" id="img_z" />
+                <label for="image">image:</label>
+            </div>
+
+            <div class="input-field col s12">
+                <br>
+                <a class="btn-floating btn-large waves-effect waves-light red btns"><i
+                        class="material-icons">add</i></a>
+                <div class="pngbox fn-clear"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class=" waves-effect waves-green btn-flat" id="submit">Submit</a>
+        </div>
+    </div>
+    <!-- Modal Trigger -->
+    <button data-target="modal1" class="btn modal-trigger">Modal</button>
+    <script>
+        $('.modal').modal(); /* modal box initialization */
+        var mainpng = ''; /* store pictures */
+        function fanmian() {
+            $('#img_f').click();
+        }
+        $('#modal1').on('click', '.btns', function () {
+            $('#img_z').click();
+
+        })
+
+        function getzImg(imgFile) {
+            var file = imgFile.files[0];
+            mainpng = file;
+            var reader = new FileReader();
+            reader.readAsDataURL(file); //Read the file as Data URL small file The small file here usually refers to the file in the format of image and html
+            reader.onload = function (e) {
+                $('.pngbox').append('<img class="btns" src="' + e.target.result + '">')
+            }
+            if (mainpng != '') {
+                $('.btns').hide();
+            }
+        }
+        $(function () {
+            /* Initialize get data */
+            $.ajax({
+                url: '/data/findAll',
+                type: 'get',
+                success: function (data) {
+                    console.log(data)
+                    if (data.code == '000') {
+                        data.result.forEach(data => {
+                            let item =
+                                '<div class="card">' +
+                                '<div class="card">' +
+                                '<div class="card-image waves-effect waves-block waves-light">' +
+                                '<img class="activator" src="' + './uploads/' + data.png +
+                                '">' +
+                                '</div>' +
+                                '<div class="card-content">' +
+                                '<span class="card-title activator grey-text text-darken-4">' +
+                                data.description +
+                                '<i class = "material-icons right"> more_vert </i></span> ' +
+                                '<p><a href="' + data.description +
+                                '">Video</a></p> <p> ' + data.description + ' </p>' +
+                                ' </div > ' +
+                                '<div class="card-reveal">' +
+                                '<span class="card-title grey-text text-darken-4">' +
+                                data.description +
+                                '<i class = "material-icons right" > close </i></span > ' +
+                                '<p>' + data.description + '</p>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="row" id="projectslist">'
+                            '</div>' +
+                            $('#listProjects').append(item)
+                        });
+                    } else {
+                        alert('error')
+                    }
+                },
+                error: function () {
+                    alert('communication error');
+                }
+            });
+            $('#submit').click(function () {
+                var formdata = new FormData();
+                var description = $('#description').val();
+                formdata.append("description", description);
+                formdata.append("file", mainpng);
+                $.ajax({
+                    url: '/data/add',
+                    data: formdata,
+                    type: 'post',
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data)
+                        if (data.code == '000') {
+                            alert('add success')
+                            window.location.reload();
+                        } else {
+                            alert('error')
+                        }
+                    },
+                    error: function () {
+                        alert('communication error');
+                    }
+                });
+            })
+        })
+    </script>
+</body>
+
+</html>

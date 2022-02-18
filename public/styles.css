@@ -1,0 +1,26 @@
+.helloInput {
+  width: 200px;
+}
+
+.title{
+  color: white;
+}
+.mainText{
+  color:white;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #418fe7;
+
+}
+
+.page-footer{
+  background-color: #4784f5;
+}
+main {
+  flex: 1 0 auto;
+}
+    
